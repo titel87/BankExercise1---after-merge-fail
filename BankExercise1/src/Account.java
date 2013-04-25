@@ -1,3 +1,5 @@
+import java.util.List;
+
 
 public class Account {
 	final int STUDENT_DISCOUNT = 20;
@@ -7,10 +9,51 @@ public class Account {
 	enum AccountType{Soldier, Student, Bussiness};
 	
 	private int discount;
+	private double balance;
 	private AccountType aType;
+	private List<CustomerAction> actionHistory;
+	private List<String> authorized;
 	
 	public Account(AccountType aType) {
+		super();
 		this.aType = aType;
+		this.balance = 0;
+	}
+	
+	public List<String> getAuthorized() {
+		return authorized;
+	}
+
+	public void setAuthorized(List<String> authorized) {
+		this.authorized = authorized;
+	}
+	
+	public void addAuthorized(String newAuthorized) {
+		this.authorized.add(newAuthorized);
+	}
+
+	public List<CustomerAction> getActionHistory() {
+		return actionHistory;
+	}
+
+	public void setActionHistory(List<CustomerAction> actionHistory) {
+		this.actionHistory = actionHistory;
+	}
+	
+	public void addActionToHistory(CustomerAction action) {
+		this.actionHistory.add(action);
+	}
+	
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double amount) {
+		this.balance = amount;
+	}
+	
+	public void addToBalance(double amount) {
+		this.balance+= amount;
 	}
 
 	public int getDiscount() {

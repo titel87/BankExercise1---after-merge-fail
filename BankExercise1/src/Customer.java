@@ -9,7 +9,7 @@ public class Customer {
 	private List<Account> accounts;
 	private Logger customerLogger;
 	private CustomerAction customerAction;
-	
+
 	public Customer(String name, List<Account> accounts) {
 		super();
 		id = ++idGenerator;
