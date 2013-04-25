@@ -10,7 +10,6 @@ public class Account {
 	private AccountType aType;
 	
 	public Account(AccountType aType) {
-		super();
 		this.aType = aType;
 	}
 
