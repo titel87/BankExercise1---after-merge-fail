@@ -1,7 +1,7 @@
 import java.util.List;
 
 
-public class Customer {
+public class Customer extends Thread{
 	
 	private static int idGenerator=0;
 	private int id;
