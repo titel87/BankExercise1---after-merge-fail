@@ -16,4 +16,15 @@ public class Customer extends Thread{
 		this.name = name;
 		this.accounts = accounts;
 	}
+
+	@Override
+	public void run() {
+		System.out.println(this + "is now running");
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + "]";
+	}
+	
 }
