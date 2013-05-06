@@ -5,8 +5,12 @@ public class GetInfoPage extends CustomerAction {
 
 	private final double COMMISSION = 1.5;
 	
+	public GetInfoPage(){
+		
+	}
+	
 	@Override
-	protected boolean execute(Account theAccount, boolean isBanker) {
+	protected boolean execute() {
 		
 		//saving the action
 		this.datePerformed = new Date();

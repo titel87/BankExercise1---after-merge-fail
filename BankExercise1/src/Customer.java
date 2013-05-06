@@ -1,7 +1,7 @@
 import java.util.List;
 
 
-public class Customer extends Thread{
+public class Customer implements Runnable{
 	
 	private static int idGenerator=0;
 	private int id;
@@ -19,7 +19,22 @@ public class Customer extends Thread{
 
 	@Override
 	public void run() {
-		System.out.println(this + "is now running");
+		System.out.println(this + " is now running");
+		
+		try {
+			synchronized(this){
+				System.out.println(this + " is waiting");
+				wait();
+				System.out.println(this + " has finish waiting");
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		boolean result = customerAction.execute();
+			//write to log details
+		System.out.println(this + " has finished running");
 	}
 
 	@Override

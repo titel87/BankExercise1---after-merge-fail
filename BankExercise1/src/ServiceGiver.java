@@ -1,18 +1,19 @@
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ServiceGiver {
+public abstract class ServiceGiver implements Runnable {
+	
 	protected List<Customer> custQ;
 	protected Customer currCustomer;
+	protected static Object mutex = new Object();
 	
-	protected void addCustomerToQueue(Customer c){
-		custQ.add(c);
-		//consider run the customer thread now as we did in the airplanes example
-		//c.start();
-	}
+	protected abstract void addCustomerToQueue(Customer c);
 	
-	protected void handleCustomer(){
-		if(custQ.size() != 0){
-			
-		}
+	protected abstract void handleCustomer(Customer c);
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
