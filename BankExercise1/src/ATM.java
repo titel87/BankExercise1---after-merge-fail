@@ -10,6 +10,7 @@ public class ATM extends ServiceGiver {
 	@Override
 	protected void addCustomerToQueue(Customer c) {
 		custQ.add(c);
+		System.out.println(c+" is added to Line for ATM");
 		
 		//log
 		

@@ -46,7 +46,7 @@ public class Program {
 		Customer c1 = new Customer("Tamar", myAccountsList);
 		Scanner theScanner = new Scanner(System.in);
 		//Print Customers - to choose
-		System.out.println("Customers in system:\n"+i+". " + c1);
+		System.out.println("Customers in system:\n"+ (i+1) +". " + c1);
 		//int chosen_customer= theScanner.nextInt();
 		
 		//Print Accounts - to choose
@@ -58,27 +58,29 @@ public class Program {
 		
 		int action= theScanner.nextInt();
 		switch(action){
-		case 1: //possibility - create Action and unite the cases 1+2
+		case 1: //possibility - unite the cases 1+2
 			System.out.println("Please Insert Amount to WITHDRAW:");
 			amount= theScanner.nextDouble();
+			theScanner.nextLine(); //empty nextLine
 			isBanker = chooseServiceGiver();
 			WithdrawOrDeposit withdraw = new WithdrawOrDeposit(-amount, isBanker);
 			//add customer to service giver queue
 			if(isBanker)
-				theBanker.custQ.add(c1);
+				theBanker.addCustomerToQueue(c1);
 			else
-				theATM.custQ.add(c1);
+				theATM.addCustomerToQueue(c1);
 			ActionsListForExecution.add(withdraw);
 			break;
 		case 2:
 			System.out.println("Please Insert Amount to DEPOSIT:");
 			amount= theScanner.nextDouble();
+			theScanner.nextLine(); //empty nextLine
 			isBanker = chooseServiceGiver();
 			WithdrawOrDeposit deposit = new WithdrawOrDeposit(amount, chooseServiceGiver());
 			if(isBanker)
-				theBanker.custQ.add(c1);
+				theBanker.addCustomerToQueue(c1);
 			else
-				theATM.custQ.add(c1);
+				theATM.addCustomerToQueue(c1);
 			ActionsListForExecution.add(deposit);
 			break;
 		case 3:
@@ -87,17 +89,18 @@ public class Program {
 			isBanker = chooseServiceGiver();
 			GiveAutorization author = new GiveAutorization(answer, isBanker);
 			if(isBanker)
-				theBanker.custQ.add(c1);
+				theBanker.addCustomerToQueue(c1);
 			else
-				theATM.custQ.add(c1);
+				theATM.addCustomerToQueue(c1);
+			ActionsListForExecution.add(author);
 			break;
 		case 4:
 			
 			break;
 		}
-		System.out.println("Ready for execute??? (y/n)");
-		String ans= theScanner.nextLine();
-		if(ans.equals("y")){
+		System.out.println("Would you like to Execute? (Y/N)");
+		answer= theScanner.nextLine();
+		if(answer.equals("Y")){
 			Runnable rc = c1, rb = theBanker, ra = theATM;
 			Thread tc = new Thread(rc);
 			Thread tb = new Thread(rb);
@@ -110,20 +113,15 @@ public class Program {
 		
 		
 		//finally-after loop
-			theScanner.close();
-		
-	}
-	
-	public static void AddToQ(Banker theBanker, ATM theATM){
+		theScanner.close();
 		
 	}
 	
 	//return true if chose Banker, else if chose ATM return false
 	public static boolean chooseServiceGiver(){
-		Scanner theScanner = new Scanner(System.in);
+		Scanner serviceScanner = new Scanner(System.in);
 		System.out.println("Would you like tu use a banker or an ATM? (B/A)");
-		String answer= theScanner.nextLine();
-		theScanner.close();
+		String answer= serviceScanner.nextLine();
 		if(answer.equals("B")) //if banker
 			return true;
 		else

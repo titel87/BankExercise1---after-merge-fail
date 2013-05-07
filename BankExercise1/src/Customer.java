@@ -24,7 +24,7 @@ public class Customer implements Runnable{
 		try {
 			synchronized(this){
 				System.out.println(this + " is waiting");
-				wait();
+				this.wait();
 				System.out.println(this + " has finish waiting");
 			}
 		} catch (InterruptedException e) {
@@ -33,7 +33,7 @@ public class Customer implements Runnable{
 		}
 		
 		boolean result = customerAction.execute();
-			//write to log details
+			//write details to log 
 		System.out.println(this + " has finished running");
 	}
 

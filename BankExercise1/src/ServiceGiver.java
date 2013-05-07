@@ -5,7 +5,7 @@ public abstract class ServiceGiver implements Runnable {
 	
 	protected List<Customer> custQ;
 	protected Customer currCustomer;
-	protected static Object mutex = new Object();
+	protected static Object mutex;
 	
 	protected abstract void addCustomerToQueue(Customer c);
 	
