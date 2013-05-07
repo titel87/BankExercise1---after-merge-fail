@@ -71,6 +71,7 @@ public class Program {
 			amount= theScanner.nextDouble();
 			theScanner.nextLine(); //empty nextLine
 			isBanker = chooseServiceGiver();
+			chooseAccountForAction(c1); //FUTURE --> for each customer
 			WithdrawOrDeposit withdraw = new WithdrawOrDeposit(-amount, isBanker);
 			//add customer to service giver queue
 			if(isBanker)
@@ -85,6 +86,7 @@ public class Program {
 			amount= theScanner.nextDouble();
 			theScanner.nextLine(); //empty nextLine
 			isBanker = chooseServiceGiver();
+			chooseAccountForAction(c1); //FUTURE --> for each customer
 			WithdrawOrDeposit deposit = new WithdrawOrDeposit(amount, chooseServiceGiver());
 			if(isBanker)
 				theBanker.addCustomerToQueue(c1);
@@ -97,6 +99,7 @@ public class Program {
 			System.out.println("Please Insert the Authorizee's Name");
 			answer= theScanner.nextLine();
 			isBanker = chooseServiceGiver();
+			chooseAccountForAction(c1); //FUTURE --> for each customer
 			GiveAutorization author = new GiveAutorization(answer, isBanker);
 			if(isBanker)
 				theBanker.addCustomerToQueue(c1);

@@ -72,7 +72,7 @@ public class Customer implements Runnable{
 		}
 		
 		boolean result = customerAction.execute(currentAccount);
-		System.out.println("Finished executing action on acount #" + currentAccount.getId());
+		System.out.println("Finished executing action on account #" + currentAccount.getId());
 		theBankLogger.getTheLogger().log(Level.INFO, "---Finished executing action on acount #" + currentAccount.getId());
 			//write details to log 
 		System.out.println(this + " has finished running");
