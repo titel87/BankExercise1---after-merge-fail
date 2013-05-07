@@ -15,7 +15,7 @@ public class GiveAutorization extends CustomerAction {
 	}
 	
 	@Override
-	protected boolean execute() {
+	protected boolean execute(Account theAccount) {
 		//saving the action
 		theAccount.addToBalance(COMMISSION);
 		theAccount.addActionToHistory(this);

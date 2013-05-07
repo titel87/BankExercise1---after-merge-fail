@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class ChargeOrCreditCustomer extends Action {
 
 	@Override
-	protected boolean execute() {
+	protected boolean execute(Account theAccount) {
 		Scanner theScanner = new Scanner(System.in);
 		amount= theScanner.nextDouble();
 		theScanner.close();

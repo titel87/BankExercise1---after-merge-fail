@@ -6,5 +6,5 @@ public abstract class Action {
 	protected double amount;
 	protected Date datePerformed;
 	protected Account theAccount;
-	protected abstract boolean execute();
+	protected abstract boolean execute(Account theAccount);
 }

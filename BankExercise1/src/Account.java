@@ -2,12 +2,15 @@ import java.util.List;
 
 
 public class Account {
-	final int STUDENT_DISCOUNT = 20;
-	final int SOLDIER_DISCOUNT = 15;
-	final int BUSSINESS_DISCOUNT = 10;
+	public static final int STUDENT_DISCOUNT = 20;
+	public static final int SOLDIER_DISCOUNT = 15;
+	public static final int BUSSINESS_DISCOUNT = 10;
 	
 	enum AccountType{Soldier, Student, Bussiness};
 	
+	static int accountNumber= 0; //for account indexing in the bank
+	
+	private int id;
 	private int discount;
 	private double balance;
 	private AccountType aType;
@@ -18,8 +21,25 @@ public class Account {
 		super();
 		this.aType = aType;
 		this.balance = 0;
+		this.id = ++accountNumber;
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", balance=" + balance + ", aType="
+				+ aType + "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public List<String> getAuthorized() {
 		return authorized;
 	}

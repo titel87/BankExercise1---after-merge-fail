@@ -10,7 +10,7 @@ public class GetInfoPage extends CustomerAction {
 	}
 	
 	@Override
-	protected boolean execute() {
+	protected boolean execute(Account theAccount) {
 		
 		//saving the action
 		this.datePerformed = new Date();

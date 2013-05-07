@@ -6,6 +6,7 @@ public abstract class ServiceGiver implements Runnable {
 	protected List<Customer> custQ;
 	protected Customer currCustomer;
 	protected static Object mutex;
+	protected BankLogger myBankLogger;
 	
 	protected abstract void addCustomerToQueue(Customer c);
 	

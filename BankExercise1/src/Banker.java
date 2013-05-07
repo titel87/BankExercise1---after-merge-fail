@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
 public class Banker extends ServiceGiver {
 	
-	public Banker(){
+	public Banker(BankLogger theLogger){
 		custQ = new ArrayList<Customer>();
 		mutex = new Object();
+		myBankLogger = theLogger;
 	}
 	
 	@Override
@@ -19,14 +21,20 @@ public class Banker extends ServiceGiver {
 
 	@Override
 	protected void handleCustomer(Customer c) {
-		
+		//EXECUTE
 	}
+
 
 	@Override
 	public void run() {
-		for(Customer c : custQ){
-			synchronized(c){
-				c.notify();
+	synchronized(mutex){
+			if(!custQ.isEmpty()){
+				for(Customer c : custQ){
+						synchronized(c){
+							System.out.println("Banker is Notifying Customer");
+							c.notify();
+						}
+				}	
 			}
 		}
 	}

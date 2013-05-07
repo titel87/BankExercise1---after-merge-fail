@@ -1,15 +1,19 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
+import java.util.logging.FileHandler;
 
 
 public class Program {
 
 	/**
 	 * @param args
+	 * @throws IOException 
+	 * @throws SecurityException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SecurityException, IOException {
 		//read from xml file example
 		/*try{
 			XMLReader xmlR = new XMLReader();
@@ -29,9 +33,13 @@ public class Program {
 		catch (Exception e){
 			System.out.println(e.getMessage());
 		}*/
-		int i=0; //for future loop
 		
-		Banker theBanker= new Banker(); //LATER---> will be a list
+		
+		
+		BankLogger myBankLogger = new BankLogger();
+		
+		
+		Banker theBanker= new Banker(myBankLogger); //LATER---> will be a list
 		ATM theATM= new ATM(); //LATER---> will be a list
 		
 		ArrayList<Action> ActionsListForExecution= new ArrayList<Action>();
@@ -43,14 +51,14 @@ public class Program {
 		String answer;
 		boolean isBanker;
 
-		Customer c1 = new Customer("Tamar", myAccountsList);
+		Customer c1 = new Customer("Tamar", myAccountsList, myBankLogger);
 		Scanner theScanner = new Scanner(System.in);
+		
 		//Print Customers - to choose
-		System.out.println("Customers in system:\n"+ (i+1) +". " + c1);
-		//int chosen_customer= theScanner.nextInt();
+		//chooseCustomer();
 		
 		//Print Accounts - to choose
-		//int chosen_account= theScanner.nextInt();
+		//chooseAccountForAction(c1);
 		
 		//Print Actions - to choose
 		System.out.println("Please choose an action:");
@@ -69,7 +77,8 @@ public class Program {
 				theBanker.addCustomerToQueue(c1);
 			else
 				theATM.addCustomerToQueue(c1);
-			ActionsListForExecution.add(withdraw);
+			ActionsListForExecution.add(withdraw);//add action to action list to execute
+			c1.applyAction(withdraw);//apply to customer
 			break;
 		case 2:
 			System.out.println("Please Insert Amount to DEPOSIT:");
@@ -81,7 +90,8 @@ public class Program {
 				theBanker.addCustomerToQueue(c1);
 			else
 				theATM.addCustomerToQueue(c1);
-			ActionsListForExecution.add(deposit);
+			ActionsListForExecution.add(deposit);//add action to action list to execute
+			c1.applyAction(deposit);//apply to customer
 			break;
 		case 3:
 			System.out.println("Please Insert the Authorizee's Name");
@@ -98,16 +108,26 @@ public class Program {
 			
 			break;
 		}
-		System.out.println("Would you like to Execute? (Y/N)");
-		answer= theScanner.nextLine();
+		do{
+			System.out.println("Would you like to Execute? (Y/N)");
+			answer= theScanner.nextLine();
+		}while(!answer.equals("Y") && !answer.equals("N"));
 		if(answer.equals("Y")){
 			Runnable rc = c1, rb = theBanker, ra = theATM;
+			//HERE RUN ON ALL ACTIONS IN LIST
 			Thread tc = new Thread(rc);
 			Thread tb = new Thread(rb);
 			Thread ta = new Thread(ra);
 			tc.start();
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}//for customer to begin waiting
 			tb.start();
+			
 			ta.start();
+			
 			
 		}
 		
@@ -117,11 +137,33 @@ public class Program {
 		
 	}
 	
+	public static void chooseAccountForAction(Customer cust){
+		System.out.println("Please choose an account for action:");
+		//read accounts from XML
+		Scanner accountScanner = new Scanner(System.in);
+		int accountID= accountScanner.nextInt();
+		cust.setAccountForAction(accountID); //setting the customer's current account
+	}
+	
+	public static Customer chooseCustomer(){
+		Customer chosenCust = new Customer();
+		System.out.println("Please choose a customer for action:");
+		//read customers from XML
+		Scanner custScanner = new Scanner(System.in);
+		int chosenID = custScanner.nextInt();
+		//match ID to customers in XML and return the customer
+		//chosenCust= ...
+		return chosenCust;
+	}
+	
 	//return true if chose Banker, else if chose ATM return false
 	public static boolean chooseServiceGiver(){
 		Scanner serviceScanner = new Scanner(System.in);
-		System.out.println("Would you like tu use a banker or an ATM? (B/A)");
-		String answer= serviceScanner.nextLine();
+		String answer;
+		do{
+			System.out.println("Would you like tu use a banker or an ATM? (B/A)");
+			answer= serviceScanner.nextLine();
+		}while(!answer.equals("B") && !answer.equals("A"));
 		if(answer.equals("B")) //if banker
 			return true;
 		else
