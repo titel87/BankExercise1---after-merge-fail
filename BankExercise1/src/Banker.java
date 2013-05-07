@@ -24,8 +24,8 @@ public class Banker extends ServiceGiver {
 
 	@Override
 	public void run() {
-		synchronized(mutex){
-			for(Customer c : custQ){
+		for(Customer c : custQ){
+			synchronized(c){
 				c.notify();
 			}
 		}
