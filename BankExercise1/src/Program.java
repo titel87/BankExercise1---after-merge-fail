@@ -39,7 +39,7 @@ public class Program {
 		BankLogger myBankLogger = new BankLogger();
 		
 		
-		Banker theBanker= new Banker(myBankLogger); //LATER---> will be a list
+		Banker theBanker= new Banker("Banker1", myBankLogger); //LATER---> will be a list
 		ATM theATM= new ATM(); //LATER---> will be a list
 		
 		ArrayList<Action> ActionsListForExecution= new ArrayList<Action>();
@@ -51,7 +51,7 @@ public class Program {
 		String answer;
 		boolean isBanker;
 
-		Customer c1 = new Customer("Tamar", myAccountsList, myBankLogger);
+		Customer c1 = new Customer("Shani", myAccountsList, myBankLogger);
 		Scanner theScanner = new Scanner(System.in);
 		
 		//Print Customers - to choose

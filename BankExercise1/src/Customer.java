@@ -11,10 +11,11 @@ public class Customer implements Runnable{
 	private int id;
 	private String name;
 	private List<Account> accounts;
-	private BankLogger theBankLogger;
+	public BankLogger theBankLogger;
 	private FileHandler customerHanlder;
 	private Action customerAction;
 	private Account currentAccount;
+	private Object mutex= new Object();
 	
 	public Customer(){
 		super();
@@ -25,7 +26,6 @@ public class Customer implements Runnable{
 		id = ++idGenerator;
 		this.name = name;
 		this.accounts = accounts;
-		//theBankLogger = new BankLogger();
 		theBankLogger = theLogger;
 		customerHanlder = new FileHandler("ID_" + this.id + "_Name_" + this.name + ".xml", true);
 		customerHanlder.setFormatter(new SimpleFormatter());
@@ -46,7 +46,6 @@ public class Customer implements Runnable{
 				}
 			}
 		}
-		
 	}
 	
 	public void applyAction(Action theAction){
@@ -70,12 +69,6 @@ public class Customer implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		boolean result = customerAction.execute(currentAccount);
-		System.out.println("Finished executing action on account #" + currentAccount.getId());
-		theBankLogger.getTheLogger().log(Level.INFO, "---Finished executing action on acount #" + currentAccount.getId());
-			//write details to log 
-		System.out.println(this + " has finished running");
 		theBankLogger.getTheLogger().log(Level.INFO, "You have finished running");
 	}
 
@@ -90,6 +83,22 @@ public class Customer implements Runnable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Action getCustomerAction() {
+		return customerAction;
+	}
+
+	public void setCustomerAction(Action customerAction) {
+		this.customerAction = customerAction;
+	}
+
+	public Account getCurrentAccount() {
+		return currentAccount;
+	}
+
+	public void setCurrentAccount(Account currentAccount) {
+		this.currentAccount = currentAccount;
 	}
 	
 	

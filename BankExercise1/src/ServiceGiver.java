@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
 
 public abstract class ServiceGiver implements Runnable {
 	
@@ -7,6 +7,8 @@ public abstract class ServiceGiver implements Runnable {
 	protected Customer currCustomer;
 	protected static Object mutex;
 	protected BankLogger myBankLogger;
+	protected FileHandler serviceGiverHanlder;
+	protected int id;
 	
 	protected abstract void addCustomerToQueue(Customer c);
 	
